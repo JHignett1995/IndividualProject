@@ -17,7 +17,7 @@ import com.qa.util.JSONUtil;
 @Transactional(SUPPORTS)
 @Default
 
-public class PlayerDBRepository implements PlayerRepository {
+public class PlayerH2Repository implements PlayerRepository {
 
 	@PersistenceContext(unitName = "primary")
 	private EntityManager manager;

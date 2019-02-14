@@ -16,7 +16,7 @@ import com.qa.util.JSONUtil;
 
 @Transactional(SUPPORTS)
 @Default
-public class GameDBRepository implements GameRepository {
+public class GameH2Repository implements GameRepository {
 
 	@PersistenceContext(unitName = "primary")
 	private EntityManager manager;

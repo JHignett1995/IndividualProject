@@ -1,4 +1,4 @@
-package com.qa.service;
+package com.qa.business;
 
 import javax.inject.Inject;
 
@@ -9,7 +9,6 @@ public class GameServiceImpl implements GameService{
 
 	@Inject
 	private GameRepository gRepo;
-	private PlayerRepository pRepo;
 
 	@Override
 	public String addGame(String game) {

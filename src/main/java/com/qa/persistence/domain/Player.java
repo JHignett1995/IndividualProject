@@ -16,23 +16,22 @@ public class Player{
 	private String password;
 	private int winCount;
 	private int loseCount;
-	private int count7BallWall;
-	private int rivalID;
+	private int count7Ball;
+	private String rivalID;
 	private boolean isAdmin;
 
 	public Player() {
 	}
 
-	public Player(String name, String title, String email, String password, int winCount, int loseCount, int count7BallWall,
-			int rivalID) {
+	public Player(String email, String name, String password) {
 		this.name = name;
-		this.title = title;
+		this.title = "";
 		this.email = email;
 		this.password = password;
-		this.winCount = winCount;
-		this.loseCount = loseCount;
-		this.count7BallWall = count7BallWall;
-		this.rivalID = rivalID;
+		this.winCount = 0;
+		this.loseCount = 0;
+		this.count7Ball = 0;
+		this.rivalID = "";
 	}
 
 	public String getName() {
@@ -75,19 +74,19 @@ public class Player{
 		this.loseCount = loseCount;
 	}
 
-	public int getCount7BallWall() {
-		return count7BallWall;
+	public int getCount7Ball() {
+		return count7Ball;
 	}
 
-	public void setCount7BallWall(int count7BallWall) {
-		this.count7BallWall = count7BallWall;
+	public void setCount7Ball(int count7Ball) {
+		this.count7Ball = count7Ball;
 	}
 
-	public int getRivalID() {
+	public String getRivalID() {
 		return rivalID;
 	}
 
-	public void setRivalID(int rivalID) {
+	public void setRivalID(String rivalID) {
 		this.rivalID = rivalID;
 	}
 

@@ -8,7 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import com.qa.service.PlayerService;
+import com.qa.business.PlayerService;
 
 
 @Path("/player")
