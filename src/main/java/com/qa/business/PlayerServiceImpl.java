@@ -10,8 +10,8 @@ import com.qa.util.JSONUtil;
 
 public class PlayerServiceImpl implements PlayerService {
 
-	// @Inject
-	private JSONUtil util = new JSONUtil();
+	@Inject
+	private JSONUtil util;
 
 	@Inject
 	private PlayerRepository repo;
@@ -53,7 +53,7 @@ public class PlayerServiceImpl implements PlayerService {
 					return "{\"message\": \"You have entered an incorrect password, password must contain a capitial\"}";
 				}
 			}
-			return "{\"message\": \"Player has been added\"}"; // repo.createPlayer(player);
+			return repo.createPlayer(player);
 		}
 		return "{\"message\": \"You don't have Admin rights\"}";
 	}
@@ -99,4 +99,9 @@ public class PlayerServiceImpl implements PlayerService {
 		return repo.getAUserRights(email);
 	}
 
+	public void setUtil(JSONUtil util) {
+		this.util = util;
+	}
+
+	
 }

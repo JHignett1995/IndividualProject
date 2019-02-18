@@ -19,7 +19,7 @@ public class PlayerEndpoint {
 	@Path("/getAllPlayers")
 	@GET
 	@Produces({"application/json"})
-	public String getAllRecipes() {
+	public String getAllPlayers() {
 		return service.getAllPlayers();
 	}
 	
