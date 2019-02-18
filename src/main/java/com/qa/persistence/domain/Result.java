@@ -4,25 +4,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Table(name="result")
 @Entity
 public class Result {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
+	@Id @OneToMany
 	private Long id;
+	@ManyToOne
 	private Long gameId;
+	@OneToMany
 	private Long winnerId;
+	@OneToMany
 	private Long loserId;
 
 	public Result() {
 
 	}
 
-	public Result(Long id, Long gameId, Long winnerId, Long loserId) {
+	public Result(Long gameId, Long winnerId, Long loserId) {
 		super();
-		this.id = id;
 		this.gameId = gameId;
 		this.winnerId = winnerId;
 		this.loserId = loserId;
