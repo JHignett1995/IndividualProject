@@ -14,7 +14,7 @@ public class Player{
 	
 	@Column(name = "playerId")
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@OneToMany
+	@OneToMany()
 	private Long playerID;
 	private String email;
 	private String name;

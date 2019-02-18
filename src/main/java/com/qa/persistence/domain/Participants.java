@@ -16,20 +16,14 @@ public class Participants {
 	@OneToMany
 	private Long id;
 	@ManyToOne
-	private Long gameId;
+	private Game gameId;
 	@ManyToOne
-	private Long player1Id;
+	private Player player1Id;
 	@ManyToOne
-	private Long player2Id;
+	private Player player2Id;
 
 	public Participants() {
 		super();
-	}
-
-	public Participants(Long gameId, Long player1Id, Long player2Id) {
-		this.gameId = gameId;
-		this.player1Id = player1Id;
-		this.player2Id = player2Id;
 	}
 
 	public Long getId() {
@@ -40,27 +34,27 @@ public class Participants {
 		this.id = id;
 	}
 
-	public Long getGameId() {
+	public Game getGameId() {
 		return gameId;
 	}
 
-	public void setGameId(Long gameId) {
+	public void setGameId(Game gameId) {
 		this.gameId = gameId;
 	}
 
-	public Long getPlayer1Id() {
+	public Player getPlayer1Id() {
 		return player1Id;
 	}
 
-	public void setPlayer1Id(Long player1Id) {
+	public void setPlayer1Id(Player player1Id) {
 		this.player1Id = player1Id;
 	}
 
-	public Long getPlayer2Id() {
+	public Player getPlayer2Id() {
 		return player2Id;
 	}
 
-	public void setPlayer2Id(Long player2Id) {
+	public void setPlayer2Id(Player player2Id) {
 		this.player2Id = player2Id;
 	}
 }

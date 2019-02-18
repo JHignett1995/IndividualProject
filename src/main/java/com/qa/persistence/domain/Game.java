@@ -15,17 +15,11 @@ public class Game {
 	@Id
 	private Long id;
 	@ManyToOne
-	private Long participantsId;
+	private Participants participantsId;
 	@OneToMany
-	private Long resultId;
+	private Result resultId;
 
 	public Game() {
-	}
-
-	public Game(Long participantsId, Long resultId) {
-		super();
-		this.participantsId = participantsId;
-		this.resultId = resultId;
 	}
 
 	public Long getId() {
@@ -36,19 +30,19 @@ public class Game {
 		this.id = id;
 	}
 
-	public Long getParticipantsId() {
+	public Participants getParticipantsId() {
 		return participantsId;
 	}
 
-	public void setParticipantsId(Long participantsId) {
+	public void setParticipantsId(Participants participantsId) {
 		this.participantsId = participantsId;
 	}
 
-	public Long getResultId() {
+	public Result getResultId() {
 		return resultId;
 	}
 
-	public void setResultId(Long resultId) {
+	public void setResultId(Result resultId) {
 		this.resultId = resultId;
 	}
 }

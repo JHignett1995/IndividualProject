@@ -15,21 +15,14 @@ public class Result {
 	@Id @OneToMany
 	private Long id;
 	@ManyToOne
-	private Long gameId;
+	private Game gameId;
 	@OneToMany
-	private Long winnerId;
+	private Player winnerId;
 	@OneToMany
-	private Long loserId;
+	private Player loserId;
 
 	public Result() {
 
-	}
-
-	public Result(Long gameId, Long winnerId, Long loserId) {
-		super();
-		this.gameId = gameId;
-		this.winnerId = winnerId;
-		this.loserId = loserId;
 	}
 
 	public Long getId() {
@@ -40,27 +33,27 @@ public class Result {
 		this.id = id;
 	}
 
-	public Long getGameId() {
+	public Game getGameId() {
 		return gameId;
 	}
 
-	public void setGameId(Long gameId) {
+	public void setGameId(Game gameId) {
 		this.gameId = gameId;
 	}
 
-	public Long getWinnerId() {
+	public Player getWinnerId() {
 		return winnerId;
 	}
 
-	public void setWinnerId(Long winnerId) {
+	public void setWinnerId(Player winnerId) {
 		this.winnerId = winnerId;
 	}
 
-	public Long getLoserId() {
+	public Player getLoserId() {
 		return loserId;
 	}
 
-	public void setLoserId(Long loserId) {
+	public void setLoserId(Player loserId) {
 		this.loserId = loserId;
 	}
 
