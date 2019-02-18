@@ -14,7 +14,7 @@ public class Player{
 	
 	@Column(name = "playerId")
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@OneToMany()
+	@OneToMany(mappedBy = "player1Id", mappedBy = "player2Id", mappedBy = "winnerId", mappedBy = "loserId")
 	private Long playerID;
 	private String email;
 	private String name;
@@ -23,7 +23,7 @@ public class Player{
 	private int winCount;
 	private int loseCount;
 	private int count7Ball;
-	private String rivalID;
+	private Long rivalID;
 	private boolean isAdmin;
 
 	public Player() {
@@ -37,7 +37,7 @@ public class Player{
 		this.winCount = 0;
 		this.loseCount = 0;
 		this.count7Ball = 0;
-		this.rivalID = "";
+		this.rivalID = 0L;
 	}
 
 	public String getName() {
@@ -88,11 +88,11 @@ public class Player{
 		this.count7Ball = count7Ball;
 	}
 
-	public String getRivalID() {
+	public Long getRivalID() {
 		return rivalID;
 	}
 
-	public void setRivalID(String rivalID) {
+	public void setRivalID(Long rivalID) {
 		this.rivalID = rivalID;
 	}
 

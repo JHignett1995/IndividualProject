@@ -1,37 +1,42 @@
 package com.qa.persistence.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "participants")
-public class Participants {
+@Table(name = "participant")
+public class Participant {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	@OneToMany
-	private Long id;
-	@ManyToOne
+	@OneToMany(mappedBy = "participantId")
+	private Long participantId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "gameId")
 	private Game gameId;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "player1Id")
 	private Player player1Id;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "player2Id")
 	private Player player2Id;
 
-	public Participants() {
+	public Participant() {
 		super();
 	}
 
 	public Long getId() {
-		return id;
+		return participantId;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.participantId = id;
 	}
 
 	public Game getGameId() {

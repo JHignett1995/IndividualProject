@@ -1,9 +1,11 @@
 package com.qa.persistence.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -12,13 +14,16 @@ import javax.persistence.Table;
 @Entity
 public class Result {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id @OneToMany
-	private Long id;
-	@ManyToOne
+	@Id @OneToMany(mappedBy = "resultId")
+	private Long resultId;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "gameID")
 	private Game gameId;
-	@OneToMany
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "winnerId")
 	private Player winnerId;
-	@OneToMany
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "loserId")
 	private Player loserId;
 
 	public Result() {
@@ -26,11 +31,11 @@ public class Result {
 	}
 
 	public Long getId() {
-		return id;
+		return resultId;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.resultId = id;
 	}
 
 	public Game getGameId() {
