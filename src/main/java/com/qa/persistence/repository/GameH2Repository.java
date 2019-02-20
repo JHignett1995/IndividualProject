@@ -50,8 +50,11 @@ public class GameH2Repository implements GameRepository {
 	public String updateGame(String game, Long id) {
 		Game orgGame = manager.find(Game.class, id);
 		Game updGame = util.getObjectForJSON(game, Game.class);
-		manager.merge(arg0)
-		
+		updGame.setReferenceNumber(orgGame.getReferenceNumber());
+		manager.persist(orgGame);
+		if(orgGame.getPlayerId().equals(updGame.getPlayerId())) {
+			orgGame.setResultStatus(updGame.getResultStatus());
+		}
 		
 		return "{\"message\": \"player sucessfully Updated\"}";
 	}
