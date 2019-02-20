@@ -48,8 +48,11 @@ public class GameH2Repository implements GameRepository {
 	@Override
 	@Transactional(REQUIRED)
 	public String updateGame(String game, Long id) {
-		deleteGame(id);
-		createGame(game);
+		Game orgGame = manager.find(Game.class, id);
+		Game updGame = util.getObjectForJSON(game, Game.class);
+		manager.merge(arg0)
+		
+		
 		return "{\"message\": \"player sucessfully Updated\"}";
 	}
 

@@ -7,46 +7,67 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "game")
 public class Game {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id @OneToMany(mappedBy = "gameId")
+	@Id
 	private Long gameId;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "participantsId")
-	private Participant participantsId;
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "resutlId")
-	private Result resultId;
+	@JoinColumn(name = "playerId")
+	private Player playerId;
+	private Long referenceNumber = 0L;
+	private int refCount =0;
+	private String resultStatus;
+
 
 	public Game() {
 	}
 
-	public Long getId() {
+	public Game(Player playerId) {
+		super();
+		this.playerId = playerId;
+		refCount++;
+		if (refCount == 2) {
+			referenceNumber++;
+			refCount = 0;
+		}
+		this.referenceNumber = referenceNumber;
+	}
+
+	public Long getGameId() {
 		return gameId;
 	}
 
-	public void setId(Long id) {
-		this.gameId = id;
+	public void setGameId(Long gameId) {
+		this.gameId = gameId;
 	}
 
-	public Participant getParticipantsId() {
-		return participantsId;
+	public Player getPlayerId() {
+		return playerId;
 	}
 
-	public void setParticipantsId(Participant participantsId) {
-		this.participantsId = participantsId;
+	public void setPlayerId(Player playerId) {
+		this.playerId = playerId;
 	}
 
-	public Result getResultId() {
-		return resultId;
+	public String getResultStatus() {
+		return resultStatus;
 	}
 
-	public void setResultId(Result resultId) {
-		this.resultId = resultId;
+	public void setResultStatus(String resultStatus) {
+		this.resultStatus = resultStatus;
 	}
+
+	public Long getReferenceNumber() {
+		return referenceNumber;
+	}
+
+	public void setReferenceNumber(Long referenceNumber) {
+		this.referenceNumber = referenceNumber;
+	}
+	
 }

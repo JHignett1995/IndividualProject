@@ -2,28 +2,25 @@ package com.qa.persistence.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="player")
-public class Player{
-	
-	@Column(name = "playerId")
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@OneToMany(mappedBy = "player1Id", mappedBy = "player2Id", mappedBy = "winnerId", mappedBy = "loserId")
-	private Long playerID;
+@Table(name = "player")
+public class Player {
+
+	@Id @Column(name = "playerId") 
+	@OneToMany(mappedBy = "playerId")
 	private String email;
+	
 	private String name;
 	private String title;
 	private String password;
 	private int winCount;
 	private int loseCount;
 	private int count7Ball;
-	private Long rivalID;
+	private String rivalID;
 	private boolean isAdmin;
 
 	public Player() {
@@ -37,7 +34,7 @@ public class Player{
 		this.winCount = 0;
 		this.loseCount = 0;
 		this.count7Ball = 0;
-		this.rivalID = 0L;
+		this.rivalID = "";
 	}
 
 	public String getName() {
@@ -88,11 +85,11 @@ public class Player{
 		this.count7Ball = count7Ball;
 	}
 
-	public Long getRivalID() {
+	public String getRivalID() {
 		return rivalID;
 	}
 
-	public void setRivalID(Long rivalID) {
+	public void setRivalID(String rivalID) {
 		this.rivalID = rivalID;
 	}
 
