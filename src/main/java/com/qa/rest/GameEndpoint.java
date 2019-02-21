@@ -23,32 +23,31 @@ public class GameEndpoint {
 		return service.getAllGames();
 	}
 	
-	@Path("/getAGame/{id}")
+	@Path("/getAGame/{refNum}")
 	@GET
 	@Produces({"application/json"})
-	public String getAGame(@PathParam("id") Long id) {
-		return service.getAGame(id);
+	public String getAGame(@PathParam("refNum") Long refNum) {
+		return service.getAGame(refNum);
 	}
 	
 	@Path("/createGame")
 	@POST
 	@Produces({"application/json"})
-	public String addGame(String game) {
-		return service.addGame(game);
+	public String addGame(String gameP1, String GameP2) {
+		return service.addGame(gameP1, GameP2);
 	}
 	
-	@Path("/deleteGame/{id}")
+	@Path("/deleteGame/{refNum}")
 	@DELETE
 	@Produces({"application/json"})
-	public String deleteGame(@PathParam("id") Long id) {
-		return service.deleteGame(id);
+	public String deleteGame(@PathParam("refNum") Long refNum) {
+		return service.deleteGame(refNum);
 	}
 	
-	@Path("/updateGame/{game}/{id}")
+	@Path("/updateGame/{gameP1}/{gameP2}/{refNum}")
 	@POST
 	@Produces({"application/json"})
-	public String editGame(@PathParam("game" + "id")String game ,Long id) {
-		return service.updateGame(game, id);
-		
+	public String editGame(@PathParam("gameP1")String gameP1,@PathParam("gameP2") String gameP2 ,@PathParam("refNum")Long refNum) {
+		return service.updateGame(gameP1, gameP2, refNum);
 	}
 }

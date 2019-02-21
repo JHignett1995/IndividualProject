@@ -2,16 +2,16 @@ package com.qa.business;
 
 public interface GameService {
 	// C
-	String addGame(String game);
+	String addGame(String gameP1, String gameP2);
 
 	// R
 	String getAllGames();
 
-	String getAGame(Long id);
+	String getAGame(Long refNum);
 
 	// U
-	String updateGame(String game, Long id);
+	String updateGame(String gameP1, String gameP2, Long refNum);
 
 	// D
-	String deleteGame(Long id);
+	String deleteGame(Long refNum);
 }

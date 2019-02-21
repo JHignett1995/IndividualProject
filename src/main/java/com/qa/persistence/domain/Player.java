@@ -7,7 +7,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "player")
+@Table(name = "Player")
 public class Player {
 
 	@Id @Column(name = "playerId") 

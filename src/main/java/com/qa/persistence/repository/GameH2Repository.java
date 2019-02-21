@@ -24,18 +24,21 @@ public class GameH2Repository implements GameRepository {
 	@Inject
 	private JSONUtil util;
 
-	
 	@Override
 	@Transactional(REQUIRED)
-	public String createGame(String game) {
-		Game aGame = util.getObjectForJSON(game, Game.class);
+	public String createGame(String gameP1, String gameP2) {
+		Game aGame = util.getObjectForJSON(gameP1, Game.class);
+		Game bGame = util.getObjectForJSON(gameP2, Game.class);
 		manager.persist(aGame);
+		manager.persist(bGame);
 		return "{\"message\": \"Game added\"}";
 	}
 
 	@Override
-	public String getAGame(Long id) {
-		return util.getJSONForObject(manager.find(Game.class, id));
+	public String getAGame(Long refNum) {
+		Query query = manager.createQuery("SELECT a From Game a WHERE referenceNumber = " + refNum);
+		Collection<Game> games = (Collection<Game>) query.getResultList();
+		return util.getJSONForObject(games);
 	}
 
 	@Override
@@ -47,27 +50,18 @@ public class GameH2Repository implements GameRepository {
 
 	@Override
 	@Transactional(REQUIRED)
-	public String updateGame(String game, Long id) {
-		Game orgGame = manager.find(Game.class, id);
-		Game updGame = util.getObjectForJSON(game, Game.class);
-		updGame.setReferenceNumber(orgGame.getReferenceNumber());
-		manager.persist(orgGame);
-		if(orgGame.getPlayerId().equals(updGame.getPlayerId())) {
-			orgGame.setResultStatus(updGame.getResultStatus());
-		}
-		
+	public String updateGame(String gameP1, String gameP2, Long refNum) {
+		deleteGame(refNum);
+		createGame(gameP1, gameP2);
 		return "{\"message\": \"player sucessfully Updated\"}";
 	}
 
 	@Override
 	@Transactional(REQUIRED)
-	public String deleteGame(Long id) {
-		Game gameInDB = util.getObjectForJSON(getAGame(id), Game.class);
-
-		if (manager.contains(manager.find(Game.class, id))) {
-
-			manager.remove(manager.find(Game.class, id));
-		}
+	public String deleteGame(Long refNum) {
+		Query query = manager.createQuery("SELECT a From Game a WHERE referenceNumber = " + refNum);
+		Collection<Game> games = (Collection<Game>) query.getResultList();
+		Game gameInDB = util.getObjectForJSON(getAGame(refNum), Game.class);
 		return "{\"message\": \"Game sucessfully deleted\"}";
 	}
 }

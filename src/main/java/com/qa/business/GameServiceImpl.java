@@ -11,8 +11,8 @@ public class GameServiceImpl implements GameService{
 	private GameRepository gRepo;
 
 	@Override
-	public String addGame(String game) {
-		return gRepo.createGame(game);
+	public String addGame(String gameP1, String gameP2) {
+		return gRepo.createGame(gameP1, gameP2);
 	}
 
 	@Override
@@ -21,19 +21,19 @@ public class GameServiceImpl implements GameService{
 	}
 
 	@Override
-	public String getAGame(Long id) {
-		return gRepo.getAGame(id);
+	public String getAGame(Long refNum) {
+		return gRepo.getAGame(refNum);
 	}
 
 	@Override
-	public String updateGame(String game, Long id) {
+	public String updateGame(String gameP1, String gameP2, Long refNum) {
 		
-		return gRepo.updateGame(game, id);
+		return gRepo.updateGame(gameP1, gameP2, refNum);
 	}
 
 	@Override
-	public String deleteGame(Long id) {
-		return gRepo.deleteGame(id);
+	public String deleteGame(Long refNum) {
+		return gRepo.deleteGame(refNum);
 	}
 
 }
