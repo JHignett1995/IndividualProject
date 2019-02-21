@@ -49,7 +49,7 @@ public class PlayerH2Repository implements PlayerRepository {
 	@Override
 	@Transactional(REQUIRED)
 	public String updatePlayer(String player, String email) {
-		Player aPlayer = (Player) manager.createQuery("SELECT a FROM Player WHERE Email = email").getResultList();
+		Player aPlayer = manager.find(Player.class, email);
 		deletePlayer(aPlayer.getEmail());
 		createPlayer(player);
 		return "{\"message\": \"player sucessfully Updated\"}";
@@ -80,4 +80,11 @@ public class PlayerH2Repository implements PlayerRepository {
 		return aPlayer.isAdmin();
 	}
 
+	public void setManager(EntityManager manager) {
+		this.manager = manager;
+	}
+
+	public void setUtil(JSONUtil util) {
+		this.util = util;
+	}
 }

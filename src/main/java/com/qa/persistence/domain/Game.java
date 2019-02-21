@@ -20,8 +20,9 @@ public class Game {
 	@JoinColumn(name = "playerId")
 	private Player playerId;
 	private Long referenceNumber = 0L;
-	private int refCount =0;
 	private String resultStatus;
+	private int refCount =0;
+	
 
 
 	public Game() {

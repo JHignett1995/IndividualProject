@@ -27,7 +27,7 @@ public class PlayerServiceImpl implements PlayerService {
 
 		if (true) {
 			for (int i = 0; i < newPlayer.getName().length(); i++) {
-				if (newPlayer.getName().toLowerCase().matches("\\W.*")) {
+				if (Pattern.compile("\\W").matcher(newPlayer.getName()).find()) {
 					return "{\"message\": \"You have entered an invalid character\"}";
 				}
 				if (Pattern.compile("[0-9]").matcher(newPlayer.getName()).find()) {
@@ -100,7 +100,6 @@ public class PlayerServiceImpl implements PlayerService {
 
 	@Override
 	public boolean getAUserRights(String email) {
-
 		return repo.getAUserRights(email);
 	}
 

@@ -27,8 +27,10 @@ public class PlayerServiceTest {
 	private JSONUtil util;
 
 	private static final String goodPlayer = "{\"email\": \"1@gmail.com\",\"name\":\"Jordan\",\"password\":\"Password1\",\"winCount\":0,\"loseCount\":0,\"count7Ball\":0,\"rivalID\":\"2@qa.com\",\"isAdmin\":\"true\"}";
+	private static final String noName = "{\"email\": \"1@gmail.com\",\"name\":\"\",\"password\":\"Password1\",\"winCount\":0,\"loseCount\":0,\"count7Ball\":0,\"rivalID\":\"2@qa.com\",\"isAdmin\":\"true\"}";
 	private static final String badName1 = "{\"email\": \"1@gmail.com\",\"name\":\"J1rdan\",\"password\":\"Password1\",\"winCount\":0,\"loseCount\":0,\"count7Ball\":0,\"rivalID\":\"2@qa.com\",\"isAdmin\":\"true\"}";
 	private static final String badName2 = "{\"email\": \"1@gmail.com\",\"name\":\"Jshitordan\",\"password\":\"Password1\",\"winCount\":0,\"loseCount\":0,\"count7Ball\":0,\"rivalID\":\"2@qa.com\",\"isAdmin\":\"true\"}";
+	private static final String badName3 = "{\"email\": \"1@gmail.com\",\"name\":\"J!rdan\",\"password\":\"Password1\",\"winCount\":0,\"loseCount\":0,\"count7Ball\":0,\"rivalID\":\"2@qa.com\",\"isAdmin\":\"true\"}";
 	private static final String badPass1 = "{\"email\": \"1@gmail.com\",\"name\":\"Jordan\",\"password\":\"pswod\",\"winCount\":0,\"loseCount\":0,\"count7Ball\":0,\"rivalID\":\"2@qa.com\",\"isAdmin\":\"true\"}";
 	private static final String badPass2 = "{\"email\": \"1@gmail.com\",\"name\":\"Jordan\",\"password\":\"password\",\"winCount\":0,\"loseCount\":0,\"count7Ball\":0,\"rivalID\":\"2@qa.com\",\"isAdmin\":\"true\"}";
 	private static final String badPass3 = "{\"email\": \"1@gmail.com\",\"name\":\"Jordan\",\"password\":\"password1\",\"winCount\":0,\"loseCount\":0,\"count7Ball\":0,\"rivalID\":\"2@qa.com\",\"isAdmin\":\"true\"}";
@@ -47,9 +49,20 @@ public class PlayerServiceTest {
 	}
 
 	@Test
+	public void testNameIsBlank() {
+		assertEquals("{\"message\": \"You have'nt entered a Name\"}", service.addPlayer(noName));
+	}
+	
+	@Test
 	public void addPlayerTestNameContainsNonWordChar() {
 		Mockito.when(repo.createPlayer(badName1)).thenReturn("{\"message\": \"Player has been added\"}");
 		assertEquals("{\"message\": \"You have entered an invalid character\"}", service.addPlayer(badName1));
+	}
+	
+	@Test
+	public void addPlayerTestNameContainsNonWordChar2() {
+		Mockito.when(repo.createPlayer(badName1)).thenReturn("{\"message\": \"Player has been added\"}");
+		assertEquals("{\"message\": \"You have entered an invalid character\"}", service.addPlayer(badName3));
 	}
 
 	@Test
@@ -99,4 +112,16 @@ public class PlayerServiceTest {
 		assertEquals("Player Updated", service.updatePlayer(goodPlayer, "1@gmail.com"));
 	}
 
+	@Test
+	public void getPassword() {
+		Mockito.when(repo.getAPlayerPassword("1@gmail.com")).thenReturn("Password1");
+		assertEquals("Password1", repo.getAPlayerPassword("1@gmail.com"));
+		//Mockito.verify(repo.getAPlayerPassword("1@gmail.com"));
+	}
+	@Test
+	public void getRights() {
+		Mockito.when(repo.getAUserRights("1@gmail.com")).thenReturn(true);
+		assertTrue(repo.getAUserRights("1@gmail.com"));
+		//Mockito.verify(repo.getAUserRights("1@gmail.com"));
+	}
 }

@@ -64,4 +64,12 @@ public class GameH2Repository implements GameRepository {
 		Game gameInDB = util.getObjectForJSON(getAGame(refNum), Game.class);
 		return "{\"message\": \"Game sucessfully deleted\"}";
 	}
+
+	public void setManager(EntityManager manager) {
+		this.manager = manager;
+	}
+
+	public void setUtil(JSONUtil util) {
+		this.util = util;
+	}
 }
