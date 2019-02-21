@@ -1,6 +1,7 @@
 package com.qa.business;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -29,7 +30,7 @@ public class PlayerServiceImpl implements PlayerService {
 				if (newPlayer.getName().toLowerCase().matches("\\W.*")) {
 					return "{\"message\": \"You have entered an invalid character\"}";
 				}
-				if (newPlayer.getName().matches("\\d.*")) {
+				if (Pattern.compile("[0-9]").matcher(newPlayer.getName()).find()) {
 					return "{\"message\": \"You have entered an invalid character\"}";
 				}
 			}
@@ -41,15 +42,19 @@ public class PlayerServiceImpl implements PlayerService {
 				}
 			}
 
+			if (newPlayer.getName().equals("")) {
+				return "{\"message\": \"You have'nt entered a Name\"}";
+			}
+
 			if (newPlayer.getPassword().length() < 6) {
 				return "{\"message\": \"You have entered an incorrect password, password must be 6 chars minimal\"}";
 			}
 			for (int i = 0; i < newPlayer.getPassword().length(); i++) {
-				if (newPlayer.getPassword().matches("[0-9].")) {
+				if (!Pattern.compile("[0-9]").matcher(newPlayer.getPassword()).find()) {
 					return "{\"message\": \"You have entered an incorrect password, password must contain a number\"}";
 				}
 
-				if (newPlayer.getPassword().matches("[A-Z].")) {
+				if (!newPlayer.getPassword().matches("[A-Z].*")) {
 					return "{\"message\": \"You have entered an incorrect password, password must contain a capitial\"}";
 				}
 			}
@@ -70,7 +75,7 @@ public class PlayerServiceImpl implements PlayerService {
 
 	@Override
 	public String updatePlayer(String player, String email) {
-		if (true) {// TODO
+		if (true) {
 			return repo.updatePlayer(player, email);
 		}
 		return "You are not signed into that account";
@@ -78,7 +83,7 @@ public class PlayerServiceImpl implements PlayerService {
 
 	@Override
 	public String deletePlayer(String email) {
-		if (true) {// TODO
+		if (true) {
 			return repo.deletePlayer(email);
 		}
 		return "You don't have Admin rights";
@@ -103,5 +108,4 @@ public class PlayerServiceImpl implements PlayerService {
 		this.util = util;
 	}
 
-	
 }

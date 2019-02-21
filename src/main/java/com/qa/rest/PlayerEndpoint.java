@@ -10,46 +10,47 @@ import javax.ws.rs.Produces;
 
 import com.qa.business.PlayerService;
 
-
 @Path("/player")
 public class PlayerEndpoint {
 	@Inject
 	private PlayerService service;
-	
+
 	@Path("/getAllPlayers")
 	@GET
-	@Produces({"application/json"})
+	@Produces({ "application/json" })
 	public String getAllPlayers() {
 		return service.getAllPlayers();
 	}
-	
+
 	@Path("/getAPlayer/{email}")
 	@GET
-	@Produces({"application/json"})
+	@Produces({ "application/json" })
 	public String getAPlayer(@PathParam("email") String email) {
 		return service.getAPlayer(email);
 	}
-	
+
 	@Path("/createPlayer")
 	@POST
-	@Produces({"application/json"})
+	@Produces({ "application/json" })
 	public String addPlayer(String player) {
 		return service.addPlayer(player);
 	}
-	
+
 	@Path("/deletePlayer/{email}")
 	@DELETE
-	@Produces({"application/json"})
+	@Produces({ "application/json" })
 	public String deletePlayer(@PathParam("email") String email) {
 		return service.deletePlayer(email);
 	}
-	
+
 	@Path("/updatePlayer/{player}/{email}")
 	@POST
-	@Produces({"application/json"})
-	public String editPlayer(@PathParam("player" + "email")String player ,String email) {
+	@Produces({ "application/json" })
+	public String editPlayer(@PathParam("player" + "email") String player, String email) {
 		return service.updatePlayer(player, email);
-		
+	}
+
+	public void setService(PlayerService service) {
+		this.service = service;
 	}
 }
-
