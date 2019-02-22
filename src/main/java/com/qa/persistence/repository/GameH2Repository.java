@@ -4,6 +4,8 @@ import static javax.transaction.Transactional.TxType.REQUIRED;
 import static javax.transaction.Transactional.TxType.SUPPORTS;
 
 import java.util.Collection;
+import java.util.List;
+
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -51,17 +53,28 @@ public class GameH2Repository implements GameRepository {
 	@Override
 	@Transactional(REQUIRED)
 	public String updateGame(String gameP1, String gameP2, Long refNum) {
-		deleteGame(refNum);
-		createGame(gameP1, gameP2);
-		return "{\"message\": \"player sucessfully Updated\"}";
+		Query query = manager.createQuery("SELECT a FROM Game a WHERE referenceNumber = " +refNum);
+		List<Game> games = (List<Game>) query.getResultList();
+		manager.remove(games.get(0));
+		manager.remove(games.get(1));
+		
+		Game aGame = util.getObjectForJSON(gameP1, Game.class);
+		Game bGame = util.getObjectForJSON(gameP2, Game.class);
+		
+		aGame.setReferenceNumber(refNum);
+		bGame.setReferenceNumber(refNum);
+		manager.persist(aGame);
+		manager.persist(bGame);
+		return "{\"message\": \"Game sucessfully Updated\"}";
 	}
 
 	@Override
 	@Transactional(REQUIRED)
 	public String deleteGame(Long refNum) {
-		Query query = manager.createQuery("SELECT a From Game a WHERE referenceNumber = " + refNum);
-		Collection<Game> games = (Collection<Game>) query.getResultList();
-		Game gameInDB = util.getObjectForJSON(getAGame(refNum), Game.class);
+		Query query = manager.createQuery("SELECT a FROM Game a WHERE referenceNumber = " +refNum);
+		List<Game> games = (List<Game>) query.getResultList();
+		manager.remove(games.get(0));
+		manager.remove(games.get(1));
 		return "{\"message\": \"Game sucessfully deleted\"}";
 	}
 

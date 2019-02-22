@@ -69,13 +69,21 @@ public class GameRepositoryTest {
 
 	@Test
 	public void updateTest() {
-		fail("TODO");
-		assertEquals("{\"message\": \"Game sucessfully Updated\"}", repo.updateGame(MOCK_OBJECT1, MOCK_OBJECT2,1L));
+		Mockito.when(manager.createQuery(Mockito.anyString())).thenReturn(query);
+		List<Game> games = new ArrayList<Game>();
+		games.add(util.getObjectForJSON(MOCK_OBJECT1, Game.class));
+		games.add(util.getObjectForJSON(MOCK_OBJECT2, Game.class));
+		Mockito.when(query.getResultList()).thenReturn(games);
+		assertEquals("{\"message\": \"Game sucessfully Updated\"}", repo.updateGame(MOCK_OBJECT1, MOCK_OBJECT2, 1L));
 	}
 
 	@Test
 	public void deleteTest() {
-		fail("TODO");
-		String reply = repo.deleteGame(1L);
-		assertEquals(reply, "{\"message\": \"Game sucessfully deleted\"}");
-	}}
+		Mockito.when(manager.createQuery(Mockito.anyString())).thenReturn(query);
+		List<Game> games = new ArrayList<Game>();
+		games.add(util.getObjectForJSON(MOCK_OBJECT1, Game.class));
+		games.add(util.getObjectForJSON(MOCK_OBJECT2, Game.class));
+		Mockito.when(query.getResultList()).thenReturn(games);
+		assertEquals("{\"message\": \"Game sucessfully deleted\"}", repo.deleteGame(1L));
+	}
+}

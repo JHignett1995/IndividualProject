@@ -36,7 +36,7 @@ public class Game {
 			referenceNumber++;
 			refCount = 0;
 		}
-		this.referenceNumber = referenceNumber;
+		setReferenceNumber(referenceNumber);
 	}
 
 	public Long getGameId() {

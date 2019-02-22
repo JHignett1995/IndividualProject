@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import com.qa.business.PlayerServiceImpl;
-import com.qa.persistence.domain.Player;
 import com.qa.persistence.repository.PlayerRepository;
 import com.qa.util.JSONUtil;
 
