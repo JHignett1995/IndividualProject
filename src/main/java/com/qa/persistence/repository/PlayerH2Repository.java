@@ -62,8 +62,9 @@ public class PlayerH2Repository implements PlayerRepository {
 
 		if (manager.contains(manager.find(Player.class, email))) {
 			manager.remove(manager.find(Player.class, email));
+			return "{\"message\": \"player sucessfully deleted\"}";
 		}
-		return "{\"message\": \"player sucessfully deleted\"}";
+		return "{\"message\": \"player not deleted\"}";
 	}
 
 	@Override
