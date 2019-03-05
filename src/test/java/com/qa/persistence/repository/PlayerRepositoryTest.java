@@ -76,6 +76,6 @@ public class PlayerRepositoryTest {
 	@Test
 	public void deleteTest() {
 		String reply = repo.deletePlayer("1@gmail.com");
-		assertEquals(reply, "{\"message\": \"player sucessfully deleted\"}");
+		assertEquals(reply, "{\"message\": \"player not deleted\"}");
 	}
 }
