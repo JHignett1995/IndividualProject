@@ -66,7 +66,7 @@ public class PlayerH2Repository implements PlayerRepository {
 	}
 	@Override
 	public String getAPlayerChamp() {
-		Query query = manager.createQuery("SELECT a FROM Player a WHERE title= champ");
+		Query query = manager.createQuery("SELECT a FROM Player a WHERE title= Champ");
 		Collection<Player> players = (Collection<Player>) query.getResultList();
 
 		return util.getJSONForObject(players);
