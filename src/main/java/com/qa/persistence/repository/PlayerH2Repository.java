@@ -51,7 +51,7 @@ public class PlayerH2Repository implements PlayerRepository {
 	
 	@Override
 	public String getAPlayerName(String name) {
-		Query query = manager.createQuery("SELECT a FROM Player a WHERE a.name LIKE CONCAT('%',:name,'%')");
+		Query query = manager.createQuery("SELECT a FROM Player a WHERE a.name LIKE '%"+name+"%'");
 		Collection<Player> players = (Collection<Player>) query.getResultList();
 
 		return util.getJSONForObject(players);
