@@ -49,13 +49,7 @@ public class PlayerH2Repository implements PlayerRepository {
 		return util.getJSONForObject(players);
 	}
 	
-	@Override
-	public String getAPlayerName(String name) {
-		Query query = manager.createQuery("SELECT a FROM Player a WHERE name='"+name+"'");
-		Collection<Player> players = (Collection<Player>) query.getResultList();
-
-		return util.getJSONForObject(players);
-	}
+	
 	
 	@Override
 	public String getAPlayerWins(int wins) {
@@ -112,5 +106,12 @@ public class PlayerH2Repository implements PlayerRepository {
 
 	public void setUtil(JSONUtil util) {
 		this.util = util;
+	}
+
+	@Override
+	public String getAPlayerName(String name) {
+		Query query = manager.createQuery("SELECT a FROM Player a WHERE name LIKE '%"+ name +"%'");
+		Collection<Player> players = (Collection<Player>) query.getResultList();
+		return util.getJSONForObject(players);
 	}
 }
