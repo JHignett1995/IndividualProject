@@ -32,7 +32,7 @@ public class PlayerEndpoint {
 	@GET
 	@Produces({ "application/json" })
 	public String getAPlayerName(@PathParam("name") String name) {
-		return service.getAPlayerEmail(name);
+		return service.getAPlayerName(name);
 	}
 	@Path("/getAPlayerWins/{wins}")
 	@GET
