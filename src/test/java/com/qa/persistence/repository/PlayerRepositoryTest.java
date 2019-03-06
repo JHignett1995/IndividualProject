@@ -62,8 +62,12 @@ public class PlayerRepositoryTest {
 
 	@Test
 	public void getATest() {
-		Mockito.when(manager.find(Player.class, "1@gmail.com")).thenReturn(util.getObjectForJSON(MOCK_OBJECT1, Player.class));
-		assertEquals(MOCK_OBJECT1, repo.getAPlayer("1@gmail.com"));
+		Mockito.when(manager.createQuery(Mockito.anyString())).thenReturn(query);
+		List<Player> Players = new ArrayList<Player>();
+		Players.add(new Player("1@gmail.com", "Jordan", "Password1"));
+		Mockito.when(query.getResultList()).thenReturn(Players);
+		System.out.println(repo.getAPlayerEmail("1@gmail.com"));
+		assertEquals(MOCK_DATA_ARRAY, repo.getAllPlayers());
 	}
 
 	@Test

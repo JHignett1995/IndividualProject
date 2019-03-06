@@ -42,8 +42,11 @@ public class PlayerH2Repository implements PlayerRepository {
 	}
 
 	@Override
-	public String getAPlayer(String email) {
-		return util.getJSONForObject(manager.find(Player.class, email));
+	public String getAPlayerEmail(String email) {
+		Query query = manager.createQuery("SELECT a FROM Player a WHERE email='"+email+"'");
+		Collection<Player> players = (Collection<Player>) query.getResultList();
+
+		return util.getJSONForObject(players);
 	}
 
 	@Override
@@ -58,7 +61,6 @@ public class PlayerH2Repository implements PlayerRepository {
 	@Override
 	@Transactional(REQUIRED)
 	public String deletePlayer(String email) {
-		Player playerInDB = util.getObjectForJSON(getAPlayer(email), Player.class);
 
 		if (manager.contains(manager.find(Player.class, email))) {
 			manager.remove(manager.find(Player.class, email));
@@ -69,14 +71,14 @@ public class PlayerH2Repository implements PlayerRepository {
 
 	@Override
 	public String getAPlayerPassword(String email) {
-		Query query = manager.createQuery("SELECT Password FROM Player WHERE Email = email");
+		Query query = manager.createQuery("SELECT Password FROM Player WHERE email ='"+ email+"'");
 		Player aPlayer = (Player) query.getResultList();
 		return aPlayer.getPassword();
 	}
 
 	@Override
 	public boolean getAUserRights(String email) {
-		Query query = manager.createQuery("SELECT isAdmin FROM Player WHERE Email = email");
+		Query query = manager.createQuery("SELECT isAdmin FROM Player WHERE email ='"+ email+"'");
 		Player aPlayer = (Player) query.getResultList();
 		return aPlayer.isAdmin();
 	}

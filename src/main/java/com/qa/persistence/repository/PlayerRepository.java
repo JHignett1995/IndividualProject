@@ -8,7 +8,7 @@ public interface PlayerRepository {
 	// R
 	String getAllPlayers();
 
-	String getAPlayer(String email);
+	String getAPlayerEmail(String email);
 
 	String getAPlayerPassword(String email);
 	

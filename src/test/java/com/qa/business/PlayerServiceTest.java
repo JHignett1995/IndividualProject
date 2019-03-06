@@ -95,7 +95,7 @@ public class PlayerServiceTest {
 
 	@Test
 	public void getAPlayerTest() {
-		Mockito.when(repo.getAPlayer("1@gmail.com")).thenReturn(goodPlayer);
+		Mockito.when(repo.getAPlayerEmail("1@gmail.com")).thenReturn(goodPlayer);
 		assertEquals(goodPlayer, service.getAPlayer("1@gmail.com"));
 	}
 

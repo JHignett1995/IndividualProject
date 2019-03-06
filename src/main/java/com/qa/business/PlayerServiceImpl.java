@@ -70,7 +70,7 @@ public class PlayerServiceImpl implements PlayerService {
 
 	@Override
 	public String getAPlayer(String email) {
-		return repo.getAPlayer(email);
+		return repo.getAPlayerEmail(email);
 	}
 
 	@Override
