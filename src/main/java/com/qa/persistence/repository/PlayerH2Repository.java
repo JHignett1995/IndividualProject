@@ -48,6 +48,29 @@ public class PlayerH2Repository implements PlayerRepository {
 
 		return util.getJSONForObject(players);
 	}
+	
+	@Override
+	public String getAPlayerName(String name) {
+		Query query = manager.createQuery("SELECT a FROM Player a WHERE name='"+name+"'");
+		Collection<Player> players = (Collection<Player>) query.getResultList();
+
+		return util.getJSONForObject(players);
+	}
+	
+	@Override
+	public String getAPlayerWins(int wins) {
+		Query query = manager.createQuery("SELECT a FROM Player a WHERE wins="+wins);
+		Collection<Player> players = (Collection<Player>) query.getResultList();
+
+		return util.getJSONForObject(players);
+	}
+	@Override
+	public String getAPlayerChamp() {
+		Query query = manager.createQuery("SELECT a FROM Player a WHERE title= champ");
+		Collection<Player> players = (Collection<Player>) query.getResultList();
+
+		return util.getJSONForObject(players);
+	}
 
 	@Override
 	@Transactional(REQUIRED)

@@ -22,11 +22,29 @@ public class PlayerEndpoint {
 		return service.getAllPlayers();
 	}
 
-	@Path("/getAPlayer/{email}")
+	@Path("/getAPlayerEmail/{email}")
 	@GET
 	@Produces({ "application/json" })
 	public String getAPlayer(@PathParam("email") String email) {
-		return service.getAPlayer(email);
+		return service.getAPlayerEmail(email);
+	}
+	@Path("/getAPlayerName/{name}")
+	@GET
+	@Produces({ "application/json" })
+	public String getAPlayerName(@PathParam("name") String name) {
+		return service.getAPlayerEmail(name);
+	}
+	@Path("/getAPlayerWins/{wins}")
+	@GET
+	@Produces({ "application/json" })
+	public String getAPlayerWins(@PathParam("wins") int wins) {
+		return service.getAPlayerWins(wins);
+	}
+	@Path("/getAPlayerChamp/")
+	@GET
+	@Produces({ "application/json" })
+	public String getAPlayerChamp() {
+		return service.getAPlayerChamp();
 	}
 
 	@Path("/createPlayer")

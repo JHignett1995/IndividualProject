@@ -4,6 +4,8 @@ public interface PlayerRepository {
 
 	// C
 	String createPlayer(String player);
+	String getAPlayerName(String name);
+	String getAPlayerWins(int wins);
 
 	// R
 	String getAllPlayers();
@@ -19,4 +21,5 @@ public interface PlayerRepository {
 
 	// D
 	String deletePlayer(String email);
+	String getAPlayerChamp();
 }

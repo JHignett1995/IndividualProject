@@ -39,7 +39,7 @@ public class PlayerEndpointTest {
 	
 	@Test
 	public void getATest() {
-		Mockito.when(service.getAPlayer("1@gmail.com")).thenReturn(MockObject1);
+		Mockito.when(service.getAPlayerEmail("1@gmail.com")).thenReturn(MockObject1);
 		assertEquals(MockObject1, endpoint.getAPlayer("1@gmail.com"));
 	}
 	

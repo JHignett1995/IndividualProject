@@ -8,7 +8,7 @@ public interface PlayerService {
 	// R
 	String getAllPlayers();
 
-	String getAPlayer(String email);
+	String getAPlayerEmail(String email);
 
 	String getAPlayerPassword(String email);
 	
@@ -19,4 +19,10 @@ public interface PlayerService {
 
 	// D
 	String deletePlayer( String email);
+
+	String getAPlayerWins(int wins);
+
+	String getAPlayerName(String name);
+
+	String getAPlayerChamp();
 }

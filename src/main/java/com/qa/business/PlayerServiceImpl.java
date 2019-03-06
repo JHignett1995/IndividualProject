@@ -69,8 +69,16 @@ public class PlayerServiceImpl implements PlayerService {
 	}
 
 	@Override
-	public String getAPlayer(String email) {
+	public String getAPlayerEmail(String email) {
 		return repo.getAPlayerEmail(email);
+	}
+	@Override
+	public String getAPlayerName(String name) {
+		return repo.getAPlayerName(name);
+	}
+	@Override
+	public String getAPlayerWins(int wins) {
+		return repo.getAPlayerWins(wins);
 	}
 
 	@Override
@@ -105,6 +113,11 @@ public class PlayerServiceImpl implements PlayerService {
 
 	public void setUtil(JSONUtil util) {
 		this.util = util;
+	}
+
+	@Override
+	public String getAPlayerChamp() {
+		return repo.getAPlayerChamp();
 	}
 
 }
