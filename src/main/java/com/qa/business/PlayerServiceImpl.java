@@ -111,8 +111,9 @@ public class PlayerServiceImpl implements PlayerService {
 	}
 
 	@Override
-	public String login(String user) {
-		return repo.login(user);
+	public String login(String email, String password) {
+		// TODO Auto-generated method stub
+		return repo.login(email, password);
 	}
 
 }

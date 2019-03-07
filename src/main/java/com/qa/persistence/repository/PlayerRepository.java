@@ -12,15 +12,11 @@ public interface PlayerRepository {
 
 	String getAPlayerEmail(String email);
 
-	String getAPlayerPassword(String email);
-	
-	boolean getAUserRights(String email);
-
 	// U
 	String updatePlayer(String player, String email);
 
 	// D
 	String deletePlayer(String email);
 	String getAPlayerChamp();
-	String login(String user);
+	String login(String email, String password);
 }

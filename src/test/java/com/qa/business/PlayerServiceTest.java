@@ -110,17 +110,4 @@ public class PlayerServiceTest {
 		Mockito.when(repo.updatePlayer(goodPlayer, "1@gmail.com")).thenReturn("Player Updated");
 		assertEquals("Player Updated", service.updatePlayer(goodPlayer, "1@gmail.com"));
 	}
-
-	@Test
-	public void getPassword() {
-		Mockito.when(repo.getAPlayerPassword("1@gmail.com")).thenReturn("Password1");
-		assertEquals("Password1", repo.getAPlayerPassword("1@gmail.com"));
-		//Mockito.verify(repo.getAPlayerPassword("1@gmail.com"));
-	}
-	@Test
-	public void getRights() {
-		Mockito.when(repo.getAUserRights("1@gmail.com")).thenReturn(true);
-		assertTrue(repo.getAUserRights("1@gmail.com"));
-		//Mockito.verify(repo.getAUserRights("1@gmail.com"));
-	}
 }

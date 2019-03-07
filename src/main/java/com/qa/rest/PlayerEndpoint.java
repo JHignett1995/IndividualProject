@@ -58,8 +58,8 @@ public class PlayerEndpoint {
 	@Path("/login")
 	@POST
 	@Produces({ "application/json" })
-	public String login(String user) {
-		return service.login(user);
+	public String login(String email,String password) {
+		return service.login(email,password);
 	}
 
 	@Path("/deletePlayer/{email}")

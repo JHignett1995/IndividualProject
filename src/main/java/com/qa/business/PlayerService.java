@@ -7,7 +7,7 @@ public interface PlayerService {
 
 	// R
 	String getAllPlayers();
-	String login(String user);
+	String login(String user, String password);
 
 	String getAPlayerEmail(String email);
 
