@@ -44,24 +44,23 @@ public class PlayerH2Repository implements PlayerRepository {
 
 	@Override
 	public String getAPlayerEmail(String email) {
-		Query query = manager.createQuery("SELECT a FROM Player a WHERE email='"+email+"'");
+		Query query = manager.createQuery("SELECT a FROM Player a WHERE email='" + email + "'");
 		Collection<Player> players = (Collection<Player>) query.getResultList();
 
 		return util.getJSONForObject(players);
 	}
-	
-	
-	
+
 	@Override
 	public String getAPlayerWins(int wins) {
-		Query query = manager.createQuery("SELECT a FROM Player a WHERE winCount="+wins);
+		Query query = manager.createQuery("SELECT a FROM Player a WHERE winCount=" + wins);
 		Collection<Player> players = (Collection<Player>) query.getResultList();
 
 		return util.getJSONForObject(players);
 	}
+
 	@Override
 	public String getAPlayerChamp() {
-		Query query = manager.createQuery("SELECT a FROM Player a WHERE title ='"+ "Champ'");
+		Query query = manager.createQuery("SELECT a FROM Player a WHERE title ='" + "Champ'");
 		Collection<Player> players = (Collection<Player>) query.getResultList();
 
 		return util.getJSONForObject(players);
@@ -97,27 +96,28 @@ public class PlayerH2Repository implements PlayerRepository {
 
 	@Override
 	public String getAPlayerName(String name) {
-		Query query = manager.createQuery("SELECT a FROM Player a WHERE name LIKE '%"+ name +"%'");
+		Query query = manager.createQuery("SELECT a FROM Player a WHERE name LIKE '%" + name + "%'");
 		Collection<Player> players = (Collection<Player>) query.getResultList();
 		return util.getJSONForObject(players);
 	}
-	
+
 	@Override
 	public String login(String email, String password) {
 		String a = getAPlayerEmail(email);
-		a= a.replaceAll("[","");
-		a= a.replaceAll("]","");
-		System.out.println(a);
+		a = a.replaceAll("\\[", "").replaceAll("\\]", "").trim();
 		Player player = util.getObjectForJSON(a, Player.class);
-		
-		if(player.getEmail().equals(email)) {
-			if(password == player.getPassword()){
-				return "{\"message\": \"Login Successful\"}";
-			}else {
-				return "{\"message\": \"Password incorrect\"}";
+		try {
+			if (player.getEmail().equals(email)) {
+				if (password == player.getPassword()) {
+					return "{\"message\": \"Login Successful\"}";
+				} else {
+					return "{\"message\": \"Password incorrect\"}";
+				}
+			} else {
+				return "{\"message\": \"Email incorrect\"}";
 			}
-		}else {
-			return "{\"message\": \"Email incorrect\"}";
+		} catch (NullPointerException e) {
+			return "{\"message\": \"Account Doesn't Exist\"}";
 		}
 	}
 }
