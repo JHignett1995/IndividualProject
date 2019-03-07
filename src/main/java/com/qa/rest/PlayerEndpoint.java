@@ -55,10 +55,10 @@ public class PlayerEndpoint {
 		return service.addPlayer(player);
 	}
 	
-	@Path("/login")
+	@Path("/login/{email}/{password}")
 	@POST
 	@Produces({ "application/json" })
-	public String login(String email,String password) {
+	public String login(@PathParam("email")String email,@PathParam("password")String password) {
 		return service.login(email,password);
 	}
 
@@ -72,7 +72,7 @@ public class PlayerEndpoint {
 	@Path("/updatePlayer/{player}/{email}")
 	@PUT
 	@Produces({ "application/json" })
-	public String editPlayer(@PathParam("player" + "email") String player, String email) {
+	public String editPlayer(@PathParam("player") String player,@PathParam("email") String email) {
 		return service.updatePlayer(player, email);
 	}
 
