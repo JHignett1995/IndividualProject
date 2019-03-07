@@ -101,16 +101,6 @@ public class PlayerServiceImpl implements PlayerService {
 		this.repo = repo;
 	}
 
-	@Override
-	public String getAPlayerPassword(String email) {
-		return repo.getAPlayerPassword(email);
-	}
-
-	@Override
-	public boolean getAUserRights(String email) {
-		return repo.getAUserRights(email);
-	}
-
 	public void setUtil(JSONUtil util) {
 		this.util = util;
 	}
@@ -118,6 +108,11 @@ public class PlayerServiceImpl implements PlayerService {
 	@Override
 	public String getAPlayerChamp() {
 		return repo.getAPlayerChamp();
+	}
+
+	@Override
+	public String login(String user) {
+		return repo.login(user);
 	}
 
 }

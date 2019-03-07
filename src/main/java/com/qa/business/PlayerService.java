@@ -7,12 +7,9 @@ public interface PlayerService {
 
 	// R
 	String getAllPlayers();
+	String login(String user);
 
 	String getAPlayerEmail(String email);
-
-	String getAPlayerPassword(String email);
-	
-	boolean getAUserRights(String email);
 
 	// U
 	String updatePlayer( String player, String email);

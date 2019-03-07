@@ -22,4 +22,5 @@ public interface PlayerRepository {
 	// D
 	String deletePlayer(String email);
 	String getAPlayerChamp();
+	String login(String user);
 }

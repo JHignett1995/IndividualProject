@@ -86,20 +86,6 @@ public class PlayerH2Repository implements PlayerRepository {
 		return "{\"message\": \"player not deleted\"}";
 	}
 
-	@Override
-	public String getAPlayerPassword(String email) {
-		Query query = manager.createQuery("SELECT Password FROM Player WHERE email ='"+ email+"'");
-		Player aPlayer = (Player) query.getResultList();
-		return aPlayer.getPassword();
-	}
-
-	@Override
-	public boolean getAUserRights(String email) {
-		Query query = manager.createQuery("SELECT isAdmin FROM Player WHERE email ='"+ email+"'");
-		Player aPlayer = (Player) query.getResultList();
-		return aPlayer.isAdmin();
-	}
-
 	public void setManager(EntityManager manager) {
 		this.manager = manager;
 	}
@@ -113,5 +99,21 @@ public class PlayerH2Repository implements PlayerRepository {
 		Query query = manager.createQuery("SELECT a FROM Player a WHERE name LIKE '%"+ name +"%'");
 		Collection<Player> players = (Collection<Player>) query.getResultList();
 		return util.getJSONForObject(players);
+	}
+	
+	@Override
+	public String login(String user) {
+		Player aUser = util.getObjectForJSON(user,Player.class);
+		
+		if(manager.contains(manager.find(Player.class, aUser.getEmail()))) {
+			Player aPlayer = manager.find(Player.class, aUser.getEmail());
+			if(aUser.getPassword() == aPlayer.getPassword()){
+				return "{\"message\": \"Login Successful\"}";
+			}else {
+				return "{\"message\": \"Password incorrect\"}";
+			}
+		}else {
+			return "{\"message\": \"Email incorrect\"}";
+		}
 	}
 }
