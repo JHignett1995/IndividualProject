@@ -43,7 +43,7 @@ public class PlayerServiceImpl implements PlayerService {
 			}
 
 			if (newPlayer.getName().equals("")) {
-				return "{\"message\": \"You have'nt entered a Name\"}";
+				return "{\"message\": \"You haven't entered a Name\"}";
 			}
 
 			if (newPlayer.getPassword().length() < 6) {
