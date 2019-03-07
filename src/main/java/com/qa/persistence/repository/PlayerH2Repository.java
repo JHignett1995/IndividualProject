@@ -105,6 +105,7 @@ public class PlayerH2Repository implements PlayerRepository {
 	public String login(String email, String password) {
 		String a = getAPlayerEmail(email);
 		a = a.replaceAll("\\[", "").replaceAll("\\]", "").trim();
+		System.out.println(a);
 		Player player = util.getObjectForJSON(a, Player.class);
 		try {
 			if (player.getEmail().equals(email)) {
