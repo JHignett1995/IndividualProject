@@ -104,7 +104,11 @@ public class PlayerH2Repository implements PlayerRepository {
 	@Override
 	public String login(String email, String password) {
 		String a = getAPlayerEmail(email);
-		a = a.replaceAll("\\[", "").replaceAll("\\]", "").trim();
+		int aSize =a.length();
+		
+		a=a.replace(a.charAt(0),'!');
+		a=a.replace(a.charAt(aSize),'!');
+		a = a.replaceAll("!", "");
 		System.out.println(a);
 		Player player = util.getObjectForJSON(a, Player.class);
 		try {
