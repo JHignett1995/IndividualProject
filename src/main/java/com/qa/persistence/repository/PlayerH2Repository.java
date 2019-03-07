@@ -103,9 +103,9 @@ public class PlayerH2Repository implements PlayerRepository {
 	
 	@Override
 	public String login(String email, String password) {
-		
-		if(manager.contains(manager.find(Player.class, email))) {
-			Player aPlayer = manager.find(Player.class, email);
+		Player bPlayer = util.getObjectForJSON(getAPlayerEmail(email), Player.class);
+		if(bPlayer != null) {
+			Player aPlayer = util.getObjectForJSON(getAPlayerEmail(email), Player.class);
 			if(password == aPlayer.getPassword()){
 				return "{\"message\": \"Login Successful\"}";
 			}else {
