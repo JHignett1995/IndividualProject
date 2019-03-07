@@ -104,18 +104,16 @@ public class PlayerH2Repository implements PlayerRepository {
 	@Override
 	public String login(String email, String password) {
 		String a = getAPlayerEmail(email);
-		int aSize =a.length();
-		
-		a=a.replace(a.charAt(0),'!');
-		a=a.replace(a.charAt(aSize),'!');
-		a = a.replaceAll("!", "");
+		a = a.replaceFirst("\\[\\{", "{").replaceAll("\\}\\]", "}").trim();
 		System.out.println(a);
 		Player player = util.getObjectForJSON(a, Player.class);
 		try {
 			if (player.getEmail().equals(email)) {
-				if (password == player.getPassword()) {
+				if (player.getPassword().equals(password)) {
+					System.out.println("{\"message\": \"Login Successful\"}");
 					return "{\"message\": \"Login Successful\"}";
 				} else {
+					
 					return "{\"message\": \"Password incorrect\"}";
 				}
 			} else {
