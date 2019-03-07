@@ -3,6 +3,7 @@ package com.qa.persistence.repository;
 import static javax.transaction.Transactional.TxType.REQUIRED;
 import static javax.transaction.Transactional.TxType.SUPPORTS;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
@@ -103,10 +104,14 @@ public class PlayerH2Repository implements PlayerRepository {
 	
 	@Override
 	public String login(String email, String password) {
-		Player bPlayer = util.getObjectForJSON(getAPlayerEmail(email), Player.class);
-		if(bPlayer != null) {
-			Player aPlayer = util.getObjectForJSON(getAPlayerEmail(email), Player.class);
-			if(password == aPlayer.getPassword()){
+		String a = getAPlayerEmail(email);
+		a= a.replaceAll("[","");
+		a= a.replaceAll("]","");
+		System.out.println(a);
+		Player player = util.getObjectForJSON(a, Player.class);
+		
+		if(player.getEmail().equals(email)) {
+			if(password == player.getPassword()){
 				return "{\"message\": \"Login Successful\"}";
 			}else {
 				return "{\"message\": \"Password incorrect\"}";
