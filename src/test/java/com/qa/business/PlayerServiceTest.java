@@ -49,7 +49,7 @@ public class PlayerServiceTest {
 
 	@Test
 	public void testNameIsBlank() {
-		assertEquals("{\"message\": \"You have'nt entered a Name\"}", service.addPlayer(noName));
+		assertEquals("{\"message\": \"You haven't entered a Name\"}", service.addPlayer(noName));
 	}
 	
 	@Test

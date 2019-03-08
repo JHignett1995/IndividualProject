@@ -78,9 +78,11 @@ public class PlayerH2Repository implements PlayerRepository {
 	@Override
 	@Transactional(REQUIRED)
 	public String deletePlayer(String email) {
-
-		if (manager.contains(manager.find(Player.class, email))) {
-			manager.remove(manager.find(Player.class, email));
+		System.out.println(email);
+		Query query = manager.createQuery("SELECT a FROM Player a WHERE email='" + email + "'");		
+		
+		if (manager.contains(query.getFirstResult())) {
+			manager.remove(query.getFirstResult());
 			return "{\"message\": \"player sucessfully deleted\"}";
 		}
 		return "{\"message\": \"player not deleted\"}";
