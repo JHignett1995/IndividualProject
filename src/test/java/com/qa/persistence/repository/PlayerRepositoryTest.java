@@ -36,9 +36,11 @@ public class PlayerRepositoryTest {
 	private static final Player MOCKPlayer = new Player("1@gmail.com","Jordan", "Password1");
 	private static final String MOCK_OBJECT1 = "{\"email\":\"1@gmail.com\",\"games\":[],\"name\":\"Jordan\",\"password\":\"Password1\",\"winCount\":0,\"loseCount\":0,\"count7Ball\":0,\"isAdmin\":false}";
 	private static final String MOCK_OBJECT2 = "{\"firstName\":\"jordan\",\"lastName\":\"hignett\",\"PlayerNumber\":123}";
+	private final List<Player> MockArray =  new ArrayList();
 
 	@Before
 	public void setup() {
+		MockArray.add(MOCKPlayer);
 		repo.setManager(manager);
 		util = new JSONUtil();
 		repo.setUtil(util);
@@ -72,14 +74,17 @@ public class PlayerRepositoryTest {
 
 	@Test
 	public void updateTest() {
-		Mockito.when(manager.find(Player.class, "1@gmail.com")).thenReturn(MOCKPlayer);
+		Mockito.when(manager.createQuery(Mockito.anyString())).thenReturn(query);
+		Mockito.when(query.getResultList()).thenReturn(MockArray);
 		
 		assertEquals("{\"message\": \"player sucessfully Updated\"}",repo.updatePlayer(MOCK_OBJECT1, "1@gmail.com"));
 	}
 
 	@Test
 	public void deleteTest() {
+		Mockito.when(manager.createQuery(Mockito.anyString())).thenReturn(query);
+		Mockito.when(query.getResultList()).thenReturn(MockArray);
 		String reply = repo.deletePlayer("1@gmail.com");
-		assertEquals(reply, "{\"message\": \"player not deleted\"}");
+		assertEquals("{\"message\": \"player not found\"}", repo.deletePlayer("1@gmail.com"));
 	}
 }

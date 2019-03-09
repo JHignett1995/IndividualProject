@@ -69,8 +69,9 @@ public class PlayerH2Repository implements PlayerRepository {
 	@Override
 	@Transactional(REQUIRED)
 	public String updatePlayer(String player, String email) {
-		Player aPlayer = manager.find(Player.class, email);
-		deletePlayer(aPlayer.getEmail());
+		Query query = manager.createQuery("SELECT a FROM Player a WHERE email='" + email + "'");		
+		
+		deletePlayer(email);
 		createPlayer(player);
 		return "{\"message\": \"player sucessfully Updated\"}";
 	}
@@ -79,13 +80,12 @@ public class PlayerH2Repository implements PlayerRepository {
 	@Transactional(REQUIRED)
 	public String deletePlayer(String email) {
 		System.out.println(email);
-		Query query = manager.createQuery("SELECT a FROM Player a WHERE email='" + email + "'");		
 		
-		if (manager.contains(query.getFirstResult())) {
-			manager.remove(query.getFirstResult());
+		if(manager.contains(manager.find(Player.class, email))){
+			manager.remove(manager.find(Player.class, email));
 			return "{\"message\": \"player sucessfully deleted\"}";
 		}
-		return "{\"message\": \"player not deleted\"}";
+		return "{\"message\": \"player not found\"}";
 	}
 
 	public void setManager(EntityManager manager) {
@@ -106,6 +106,7 @@ public class PlayerH2Repository implements PlayerRepository {
 	@Override
 	public String login(String email, String password) {
 		String a = getAPlayerEmail(email);
+		System.out.println(a);
 		a = a.replaceFirst("\\[\\{", "{").replaceAll("\\}\\]", "}").trim();
 		System.out.println(a);
 		Player player = util.getObjectForJSON(a, Player.class);
