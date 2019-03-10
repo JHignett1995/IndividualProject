@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-
 import com.qa.persistence.domain.Player;
 import com.qa.util.JSONUtil;
 
@@ -30,7 +29,9 @@ public class PlayerH2Repository implements PlayerRepository {
 	@Transactional(REQUIRED)
 	public String createPlayer(String player) {
 		Player aPlayer = util.getObjectForJSON(player, Player.class);
-		manager.persist(aPlayer);
+		Player b = new Player(aPlayer.getEmail(),aPlayer.getName(), aPlayer.getPassword());
+		b.setAdmin(aPlayer.isAdmin());
+		manager.persist(b);
 		return "{\"message\": \"Player has been added\"}";
 	}
 
@@ -69,17 +70,33 @@ public class PlayerH2Repository implements PlayerRepository {
 	@Override
 	@Transactional(REQUIRED)
 	public String updatePlayer(String player, String email) {
-		Query query = manager.createQuery("SELECT a FROM Player a WHERE email='" + email + "'");		
+		manager.joinTransaction();
+		try {
+		Player playerInDB = manager.find(Player.class, email);
+		System.out.println(player);
+		Player updPlayer = util.getObjectForJSON(player, Player.class);
 		
-		deletePlayer(email);
-		createPlayer(player);
+		playerInDB.setEmail(updPlayer.getEmail());
+		playerInDB.setName(updPlayer.getName());
+		playerInDB.setPassword(updPlayer.getPassword());
+		playerInDB.setTitle(updPlayer.getTitle());
+		playerInDB.setWinCount(updPlayer.getWinCount());
+		playerInDB.setLoseCount(updPlayer.getLoseCount());
+		playerInDB.setCount7Ball(updPlayer.getCount7Ball());
+		playerInDB.setRivalID(updPlayer.getRivalID());
+		playerInDB.setAdmin(updPlayer.isAdmin());
+		
+		}catch(NullPointerException e) {
+			return"{\"message\": \"Account not found\"}";
+		}
+		manager.flush();
 		return "{\"message\": \"player sucessfully Updated\"}";
 	}
 
 	@Override
 	@Transactional(REQUIRED)
 	public String deletePlayer(String email) {
-		System.out.println(email);
+		System.out.println("finding " + email);
 		
 		if(manager.contains(manager.find(Player.class, email))){
 			manager.remove(manager.find(Player.class, email));
@@ -105,16 +122,13 @@ public class PlayerH2Repository implements PlayerRepository {
 
 	@Override
 	public String login(String email, String password) {
-		String a = getAPlayerEmail(email);
-		System.out.println(a);
-		a = a.replaceFirst("\\[\\{", "{").replaceAll("\\}\\]", "}").trim();
-		System.out.println(a);
-		Player player = util.getObjectForJSON(a, Player.class);
+		
 		try {
-			if (player.getEmail().equals(email)) {
-				if (player.getPassword().equals(password)) {
+			Player user = manager.find(Player.class, email);
+			if (user.getEmail().equals(email)) {
+				if (user.getPassword().equals(password)) {
 					System.out.println("{\"message\": \"Login Successful\"}");
-					return "{\"message\": \"Login Successful\"}";
+					return "{\"message\": \"Login Successful\",\"admin\":"+user.isAdmin()+"}";
 				} else {
 					
 					return "{\"message\": \"Password incorrect\"}";

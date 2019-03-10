@@ -9,6 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name = "Game")
 public class Game {
@@ -17,11 +20,12 @@ public class Game {
 	private Long gameId;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "playerId")
+	@JoinColumn(name = "playerId", nullable=true)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Player playerId;
-	private Long referenceNumber = 0L;
+	private Long reference;
 	private String resultStatus;
-	private int refCount =0;
+	private int gameCount;
 	
 
 
@@ -31,12 +35,6 @@ public class Game {
 	public Game(Player playerId) {
 		super();
 		this.playerId = playerId;
-		refCount++;
-		if (refCount == 2) {
-			referenceNumber++;
-			refCount = 0;
-		}
-		setReferenceNumber(referenceNumber);
 	}
 
 	public Long getGameId() {
@@ -64,11 +62,11 @@ public class Game {
 	}
 
 	public Long getReferenceNumber() {
-		return referenceNumber;
+		return this.reference;
 	}
 
 	public void setReferenceNumber(Long referenceNumber) {
-		this.referenceNumber = referenceNumber;
+		this.reference = referenceNumber;
 	}
 	
 }

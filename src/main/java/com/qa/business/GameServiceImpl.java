@@ -11,8 +11,9 @@ public class GameServiceImpl implements GameService{
 	private GameRepository Repo;
 
 	@Override
-	public String addGame(String gameP1, String gameP2) {
-		return Repo.createGame(gameP1, gameP2);
+	public String addGame(String player1, String player2) {
+		System.out.println("serviceIMPL: " + player1 + "  " + player2);
+		return Repo.createGame(player1, player2);
 	}
 
 	@Override
@@ -24,11 +25,16 @@ public class GameServiceImpl implements GameService{
 	public String getAGame(Long refNum) {
 		return Repo.getAGame(refNum);
 	}
+	
+	@Override
+	public String getAGamebyPlayer(String email) {
+		return Repo.getAGameByPlayer(email);
+	}
 
 	@Override
-	public String updateGame(String gameP1, String gameP2, Long refNum) {
+	public String updateGame(String winnerEmail, String loserEmail, Long refNum, boolean count7Ball) {
 		
-		return Repo.updateGame(gameP1, gameP2, refNum);
+		return Repo.updateGame(winnerEmail, loserEmail, refNum, count7Ball);
 	}
 
 	@Override

@@ -52,6 +52,7 @@ public class PlayerEndpoint {
 	@POST
 	@Produces({ "application/json" })
 	public String addPlayer(String player) {
+		System.out.println("Pendpoint: " + player);
 		return service.addPlayer(player);
 	}
 	
@@ -69,10 +70,10 @@ public class PlayerEndpoint {
 		return service.deletePlayer(email);
 	}
 
-	@Path("/updatePlayer/{player}/{email}")
-	@PUT
+	@Path("/updatePlayer/{email}")
+	@POST
 	@Produces({ "application/json" })
-	public String editPlayer(@PathParam("player") String player,@PathParam("email") String email) {
+	public String editPlayer(String player,@PathParam("email") String email) {
 		return service.updatePlayer(player, email);
 	}
 

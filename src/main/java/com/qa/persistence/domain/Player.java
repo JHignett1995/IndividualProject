@@ -1,6 +1,7 @@
 package com.qa.persistence.domain;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name = "Player")
 public class Player {
@@ -20,9 +24,11 @@ public class Player {
 	@Column(name = "email",unique=true,columnDefinition="VARCHAR(255)")
 	private String email;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
 	@JoinColumn(name = "fk_game")
-	private List<Game> games = new ArrayList<>();
+	
+	private List<Game> games;
+	
 	
 	private String name;
 	private String title;

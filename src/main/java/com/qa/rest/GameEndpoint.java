@@ -28,12 +28,19 @@ public class GameEndpoint {
 	public String getAGame(@PathParam("refNum") Long refNum) {
 		return service.getAGame(refNum);
 	}
+	@Path("/getAGamebyPlayer/{email}")
+	@GET
+	@Produces({ "application/json" })
+	public String getAGamebyPlayer(@PathParam("email") String email) {
+		return service.getAGamebyPlayer(email);
+	}
 
-	@Path("/createGame")
+	@Path("/createGame/{player1}/{player2}")
 	@POST
 	@Produces({ "application/json" })
-	public String addGame(String gameP1, String GameP2) {
-		return service.addGame(gameP1, GameP2);
+	public String addGame(@PathParam("player1")String player1,@PathParam("player2")String player2) {
+		System.out.println("endpoint: " + player1 + "  " + player2);
+		return service.addGame(player1, player2);
 	}
 
 	@Path("/deleteGame/{refNum}")
@@ -43,12 +50,12 @@ public class GameEndpoint {
 		return service.deleteGame(refNum);
 	}
 
-	@Path("/updateGame/{gameP1}/{gameP2}/{refNum}")
+	@Path("/updateGame/{winnerEmail}/{loserEmail}/{refNum}/{count7Ball}")
 	@POST
 	@Produces({ "application/json" })
-	public String editGame(@PathParam("gameP1") String gameP1, @PathParam("gameP2") String gameP2,
-			@PathParam("refNum") Long refNum) {
-		return service.updateGame(gameP1, gameP2, refNum);
+	public String editGame(@PathParam("winnerEmail") String winnerEmail, @PathParam("loserEmail") String loserEmail,
+			@PathParam("refNum") Long refNum, @PathParam("count7Ball") boolean count7Ball) {
+		return service.updateGame(winnerEmail, loserEmail, refNum, count7Ball);
 	}
 
 	public void setService(GameService service) {

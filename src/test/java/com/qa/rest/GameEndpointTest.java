@@ -45,9 +45,9 @@ public class GameEndpointTest {
 	
 	@Test
 	public void updateTest() {
-		Mockito.when(service.updateGame(MockObject1, mockObject2, 1L)).thenReturn(MOCK_VALUE);
-		assertEquals(MOCK_VALUE, endpoint.editGame(MockObject1, mockObject2, 1L));
-		Mockito.verify(service).updateGame(MockObject1, mockObject2, 1L);
+		Mockito.when(service.updateGame(MockObject1, mockObject2, 1L,false)).thenReturn(MOCK_VALUE);
+		assertEquals(MOCK_VALUE, endpoint.editGame(MockObject1, mockObject2, 1L,false));
+		Mockito.verify(service).updateGame(MockObject1, mockObject2, 1L,false);
 	}
 	
 	@Test

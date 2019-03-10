@@ -49,8 +49,8 @@ public class GameServiceTest {
 	
 	@Test
 	public void updateTest() {
-		Mockito.when(repo.updateGame(MOCK_OBJECT1, MOCK_OBJECT2,1L)).thenReturn("Game updated");
-		assertEquals("Game updated", service.updateGame(MOCK_OBJECT1,MOCK_OBJECT2,1L));
+		Mockito.when(repo.updateGame(MOCK_OBJECT1, MOCK_OBJECT2,1L,false)).thenReturn("Game updated");
+		assertEquals("Game updated", service.updateGame(MOCK_OBJECT1,MOCK_OBJECT2,1L,false));
 	}
 	
 	@Test
