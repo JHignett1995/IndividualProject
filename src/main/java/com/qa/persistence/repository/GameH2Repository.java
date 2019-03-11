@@ -59,7 +59,7 @@ public class GameH2Repository implements GameRepository {
 
 	@Override
 	public String getAGame(Long refNum) {
-		Query query = manager.createQuery("SELECT a From Game a WHERE referenceNumber = " + refNum);
+		Query query = manager.createQuery("SELECT a From Game a WHERE reference = " + refNum);
 		Collection<Game> games = (Collection<Game>) query.getResultList();
 		return util.getJSONForObject(games);
 	}
@@ -83,7 +83,7 @@ public class GameH2Repository implements GameRepository {
 	public String updateGame(String winnerEmail, String loserEmail, Long refNum,boolean count7Ball) {
 		System.out.println("finding games");
 		manager.joinTransaction();
-		Query query = manager.createQuery("SELECT a FROM Game a WHERE referenceNumber = " + refNum);
+		Query query = manager.createQuery("SELECT a FROM Game a WHERE reference = " + refNum);
 		List<Game> games = (List<Game>) query.getResultList();
 		boolean winnerIsA;
 		if (games.get(0).getPlayerId().getEmail().equals(winnerEmail)) {
