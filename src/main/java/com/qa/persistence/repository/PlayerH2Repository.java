@@ -29,8 +29,6 @@ public class PlayerH2Repository implements PlayerRepository {
 	@Transactional(REQUIRED)
 	public String createPlayer(String player) {
 		Player aPlayer = util.getObjectForJSON(player, Player.class);
-		System.out.println("initial value: "+aPlayer.isAdmin());
-		System.out.println("inverse value: "+!aPlayer.isAdmin());
 		Player b = new Player(aPlayer.getEmail(),aPlayer.getName(), aPlayer.getPassword());
 		b.setAdmin(aPlayer.isAdmin());
 		manager.persist(b);
