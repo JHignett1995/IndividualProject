@@ -80,7 +80,7 @@ public class GameH2Repository implements GameRepository {
 
 	@Override
 	@Transactional(REQUIRED)
-	public String updateGame(String winnerEmail, String loserEmail, Long refNum,boolean count7Ball) {
+	public String updateGame(String winnerEmail, String loserEmail, Long refNum, boolean count7Ball) {
 		System.out.println("finding games");
 		manager.joinTransaction();
 		Query query = manager.createQuery("SELECT a FROM Game a WHERE reference = " + refNum);
@@ -122,12 +122,13 @@ public class GameH2Repository implements GameRepository {
 			winner.setTitle(loser.getTitle());
 			loser.setTitle("");
 		}
-		if(count7Ball) {
-			loser.setCount7Ball(loser.getCount7Ball()+1);
-		}
 		
-			System.out.println("Commiting Changes to players");
-			manager.flush();
+		if(count7Ball) {
+			System.out.println(loser.getCount7Ball());
+			loser.setCount7Ball((loser.getCount7Ball()+1));
+		}
+		System.out.println("Commiting Changes to players");
+		manager.flush();
 		return "{\"message\": \"Game sucessfully Updated\"}";
 	}
 
